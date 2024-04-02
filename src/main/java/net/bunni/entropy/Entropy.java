@@ -1,6 +1,9 @@
 package net.bunni.entropy;
 
+import net.bunni.entropy.items.ModCreativeModTabs;
+import net.bunni.entropy.items.ModItems;
 import net.minecraft.client.Minecraft;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -26,6 +29,11 @@ public class Entropy
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        ModCreativeModTabs.register(modEventBus);
+
+
+        ModItems.register(modEventBus);
+
 
         modEventBus.addListener(this::commonSetup);
 
@@ -44,6 +52,10 @@ public class Entropy
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
+        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS){
+            event.accept(ModItems.SAPPHIRE);
+            event.accept(ModItems.GLOWING_ORB);
+        }
 
     }
 
